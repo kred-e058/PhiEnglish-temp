@@ -277,7 +277,7 @@ function get_URL(){
 }
 
 function erase_right_side_in_URL(e){
-    e.originalTarget.classList.add('clicked');
+    e.target.classList.add('clicked');
     let listE_urlBar = document.querySelector('.url').children;
     let numberList = 0; for (let i = 0; i < listE_urlBar.length; i ++) numberList++;
     for (let i = 1; i < listE_urlBar.length; i += 2) {
