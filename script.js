@@ -288,7 +288,7 @@ function erase_right_side_in_URL(e){
             break;
         }
     }
-    e.originalTarget.classList.remove('clicked');
+    e.target.classList.remove('clicked');
 
 }
 
