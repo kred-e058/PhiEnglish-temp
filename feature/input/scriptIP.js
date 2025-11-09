@@ -6,11 +6,9 @@ let data = path[tagName].data;
 let checkEditPage = 0;
 // Check data exist
 function isEditPage(){
-    console.log(path)
-    console.log(data)
     if (data.length !== 0){
+        console.log(data[0].length);
         checkEditPage = 1;
-        console.log("is an edit page")
     } else return ;
 }
 isEditPage();
@@ -19,7 +17,9 @@ isEditPage();
 localStorage.setItem('SPM', 'input')
 
 let index = 0;
-for (let i = 0; i < 3; i++){
+let nbFirstLoop = 3;
+if (checkEditPage && data[0].length > 3) nbFirstLoop = data[0].length; 
+for (let i = 0; i < nbFirstLoop; i++){
     add_blocks(index);
 }
 document.querySelector('.title').innerText = tagName;

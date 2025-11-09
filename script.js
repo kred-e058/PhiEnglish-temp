@@ -1,6 +1,8 @@
+let active_event = 1;
 add_URL('home');
 open_page();
 function createTag(isNew, old_name){
+    if (!active_event) return ;
     //Setup local 
     let root = JSON.parse(localStorage.getItem("root"));
     let get_url = get_URL();
@@ -19,7 +21,7 @@ function createTag(isNew, old_name){
 
     //onclick
     newTag.onclick = (e) =>{
-        openTag(e,path);
+        if (active_event) openTag(e,path);
     }
 
     //name
@@ -31,6 +33,7 @@ function createTag(isNew, old_name){
     }else{
         let autoName = "New tag " + String(path.indexFile)
         let i = 1;
+        console.log (path);
         while (listName[autoName]){
             autoName += '*';
         }
@@ -64,6 +67,7 @@ function createTag(isNew, old_name){
 }
 
 function createFolder(isNew, old_name){
+    if (!active_event) return ; 
      //Setup localStorage
     let root = JSON.parse(localStorage.getItem("root"));
     let get_url = get_URL();
@@ -92,9 +96,10 @@ function createFolder(isNew, old_name){
 
     //ONCLICK 
     newFolder.onclick = (e) =>{
-        // console.log(e.target.nextElementSibling.firstChild.data);
-        add_URL(e.target.nextElementSibling.firstChild.data, 1);
-        open_page(1);
+        if (active_event) {
+            add_URL(e.target.nextElementSibling.firstChild.data, 1);
+            open_page(1);
+        }
     }
     //update list 
     let listIconBox = document.querySelectorAll(".icon-box");
@@ -116,6 +121,7 @@ function createFolder(isNew, old_name){
 }
 
 function changeName(container, name, icon){
+    active_event = 2;
     let div = document.querySelector(".container-block");
     let root = JSON.parse(localStorage.getItem("root"));
     let path = get_current_urlObject(root);
@@ -123,13 +129,26 @@ function changeName(container, name, icon){
     let old_name = name.innerText;
     name.remove();
     name=document.createElement("input");
+    name.value = old_name;
     name.placeholder = "Enter";
     container.appendChild(name);
     name.style.cssText=`
         width: 80px;
         margin-left: 12px;
     `;
+    window.addEventListener('click', (e) => {
+            if (active_event === 2 | active_event === false) { 
+            e.preventDefault();
+            active_event = false;
+        }
+        })
     name.addEventListener("change", function(e){
+        active_event = true;
+        window.removeEventListener('click',(e) => {
+            e.preventDefault();
+            console.log(e)
+            active_event = false;
+        });
         let new_name = name.value;
         //localStorage 
         let root = JSON.parse(localStorage.getItem("root"));
@@ -138,8 +157,7 @@ function changeName(container, name, icon){
         let list_keys = Object.keys(path);
         list_keys.forEach(e =>{
             if (e === new_name) {
-                alert("Trùng tên!");
-                check = undefined;
+                name.value += '*';
             }
         })
 
@@ -216,8 +234,10 @@ function add_URL(name, isBack){
     link_folder.textContent = name;
     link_folder.classList.add('folder-url');
     link_folder.onclick = (e) =>{
-        erase_right_side_in_URL(e);
-        open_page(isBack);
+        if (active_event) {
+            erase_right_side_in_URL(e);
+            open_page(isBack);
+        }
     }
     url.appendChild(link_folder);
 }
@@ -231,7 +251,9 @@ function open_page(isBack){
         let back_button = document.createElement("button");
         back_button.classList.add('back_button');
         back_button.textContent = 'Back';
-        back_button.onclick = () => {back_buttonHome();}
+        back_button.onclick = () => {
+            if (active_event) back_buttonHome();
+        }
         container.appendChild(back_button);
     }
     // Display blocks
@@ -307,6 +329,3 @@ function show_containerBox(){
     console.log(container[0].children);
 }
 
-function getListName(){
-
-}
