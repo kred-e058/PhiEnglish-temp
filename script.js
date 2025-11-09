@@ -121,7 +121,6 @@ function createFolder(isNew, old_name){
 }
 
 function changeName(container, name, icon){
-    active_event = 2;
     let div = document.querySelector(".container-block");
     let root = JSON.parse(localStorage.getItem("root"));
     let path = get_current_urlObject(root);
@@ -136,19 +135,7 @@ function changeName(container, name, icon){
         width: 80px;
         margin-left: 12px;
     `;
-    window.addEventListener('click', (e) => {
-            if (active_event === 2 | active_event === false) { 
-            e.preventDefault();
-            active_event = false;
-        }
-        })
     name.addEventListener("change", function(e){
-        active_event = true;
-        window.removeEventListener('click',(e) => {
-            e.preventDefault();
-            console.log(e)
-            active_event = false;
-        });
         let new_name = name.value;
         //localStorage 
         let root = JSON.parse(localStorage.getItem("root"));
