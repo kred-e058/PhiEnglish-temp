@@ -1,8 +1,15 @@
+//set voices
+let voices = speechSynthesis.getVoices();
+speechSynthesis.addEventListener('voiceschanged', () => {
+    voices = speechSynthesis.getVoices();
+})
+let utterance = new SpeechSynthesisUtterance()
 let currentURL = JSON.parse(localStorage.getItem('currentURL'));
 let root = JSON.parse(localStorage.getItem('root'));
 let tagName = localStorage.getItem('nameTagClicked');
 let data = get_current_urlObject(root)[tagName].data;
 let path = get_current_urlObject(root);
+let current_term;
 //title page
 let title = document.querySelector('.title')
 title.innerText = tagName
@@ -25,7 +32,7 @@ switch (localStorage.getItem('SPM')){
         finish(); 
         break;
 }
-console.log(data);
+
 function add_practice_btn(){
     document.querySelector('.container-body').innerHTML = `
                 <button class="practice-btn" onclick="
@@ -45,13 +52,24 @@ function add_practice_btn(){
             <button class="practice-btn" onclick="
                 window.location = './mixStory/indexMS.html'
                 localStorage.setItem('id_ques', 0); 
-            ">Adding story</button>
+            ">Tạo truyện chêm</button>
             `
 }
+
+
+function speakText(text) {
+    utterance.text = text;
+    utterance.rate = 1;
+    // utterance.currentTime = 0;
+    utterance.voice = voices[5];
+    speechSynthesis.speak(utterance);
+}
+
+
 function multipleChoice(){
     // remove Setting button 
     let ctn_header = document.querySelector('.header');
-    let settingImg = document.querySelector('.setting');
+    let settingImg = document.querySelector(' .setting');
     settingImg.style.display = 'none';
     let nothingIMG = document.createElement('img');
     nothingIMG.classList.add('nothingImg')
@@ -75,13 +93,13 @@ function multipleChoice(){
     let ctn_ques = document.createElement('div');
     ctn_ques.classList.add('ctn-ques')
     container.appendChild(ctn_ques)
-
+ 
     //display "Term"
     let strTerm = document.createElement('span');
     strTerm.innerHTML= '<strong>Term</strong>';
     ctn_ques.appendChild(strTerm);
 
-    //counter ques
+    //counter ques 
     let cnumQ = document.createElement('span')
     cnumQ.innerText = (parseInt(id)+1) + '/' + data[0].length
     cnumQ.style.cssText = `
@@ -94,7 +112,19 @@ function multipleChoice(){
     let title_ques  = document.createElement('div');
     title_ques.classList.add('title-question');
     title_ques.innerText = rdTerm[id];
+    current_term = rdTerm[id];
+    speakText(current_term)
     ctn_ques.appendChild(title_ques);
+
+    //speaker icon 
+    let speaker_icon = document.createElement('img');
+    speaker_icon.src = '../../speakerItem.png';
+    speaker_icon.classList.add('speaker-icon');
+    speaker_icon.onclick = () => {
+            console.log(current_term);
+            speakText(current_term)
+    }
+    title_ques.appendChild(speaker_icon);
 
     // container alts
     let ctn_answers = document.createElement('div');

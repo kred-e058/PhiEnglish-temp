@@ -10,23 +10,50 @@
 <body>
     <div class="container">
         <div class="header">
-            <h3 class="title">This is title</h3>
+            <h3 class="title"></h3>
             <div>
                 <!-- <img src="../../../settingimg.png" width="50px" height="50px" class="setting" onclick="onclickSetting()"> -->
                 <img src="../../../backgroundItem__NOTHING.png" width="50px" height="50px" >
                 <img src="../../../goback_but.png" width="50px" height="40px" class="goBack-page" onclick="goBack()">
             </div>
-        </div>
+        </div> 
 
         <div class="container-body">
-            <span>Mô tả</span>
-            <div class="form-input"></div>
-            <ul>
-                <li>Sáng tạo</li>
-            </ul>
+            <div class="ctn-describe">
+                <div>
+                <span>Chủ đề</span>
+                <select name="describeStory" id="genre">
+                    <option value="random">Ngẫu nhiên</option>
+                    <option value="life_lesson">Bài học cuộc sống</option>
+                    <option value="self_development">Phát triển bản thân</option>
+                    <option value="comedy">Hài hước</option>
+                    <option value="detective">Trinh thám</option>
+                    <option value="love">Tình yêu tuổi học trò</option>
+                    <option value="son_tung_mtp">Sơn Tùng M-TP</option>
+                    <option value="drama">Drama</option>
+                    <option value="comforting in this situation, don't create a story, just an deep talk">An ủi / Lời chúc</option>
+                    <option value="badminton">Cầu lông</option>
+                    <option value="win_crush">Cách tán đổ crush</option>
+                </select>
+                </div>
+                <div>
+                <span>Mức độ</span>
+                <select name="emotional_level" id="emotional_level">
+                    <option value="normal">Bình thường</option>
+                    <option value="playful">Cợt nhả</option>
+                    <option value="sad">Buồn</option>
+                    <option value="serious">Nghiêm túc</option>
+                </select>
+                </div>
+            </div>
+            <button class='create-btn' onclick="createStory()">Tạo</button>
+
+            <div class="ctn-storys">
+            </div>
         </div>
     </div>
     <script src="scriptMS.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="../../../local.js"></script>
 </body>
 </html> 

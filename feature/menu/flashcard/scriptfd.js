@@ -75,11 +75,11 @@ function preQues(){
 
 //set voices
 let voices = speechSynthesis.getVoices();
-speechSynthesis.addEventListener('voiceschanged', () =>{
+speechSynthesis.addEventListener('voiceschanged', () => {
     voices = speechSynthesis.getVoices();
 })
 
-function speakText(text){
+function speakText(text) {
     let utterance = new SpeechSynthesisUtterance(text)
     utterance.rate = 1;
     utterance.currentTime = 0;
@@ -87,7 +87,7 @@ function speakText(text){
     speechSynthesis.speak(utterance);
 }
 //onclick speaker 
-document.querySelector('.speaker').onclick = () =>{
+document.querySelector('.speaker').onclick = () => {
     speakText(rdTerm[id_ques]);
 }
 

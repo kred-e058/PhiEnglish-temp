@@ -1,5 +1,5 @@
 
-
+//  localStorage.getItem('nameTagClicked');
 function set_root_local(){
     if (JSON.parse(localStorage.getItem("root")) === null){
         let root = new Object; 
@@ -42,6 +42,9 @@ function set_root_local(){
             thisisdraftno3onecansetthisnameomgm2m1m194 : 1
         };
         localStorage.setItem('listName', JSON.stringify(listName));
+    }
+    if (localStorage.getItem('list_mixStory') === null){
+        localStorage.setItem('list_mixStory', JSON.stringify([]));
     }
 }
 set_root_local();

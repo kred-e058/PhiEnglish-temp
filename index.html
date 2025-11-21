@@ -5,7 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="style.css">
-	<link rel='stylesheet' href="root.css"
+	<link rel='stylesheet' href="root.css">
+	<link rel='stylesheet' href="feature/setting_style.css">
 </head>
 <body>
 	<div class="navbar">
@@ -17,28 +18,24 @@
 			<li><a href="./">Home</a></li>
 			<li><a>Tiến Độ</a></li>
 			<li><a>Phản Hồi</a></li>
-			<li><a>Giới Thiệu</a></li>
+			<li><a>Mẫu từ vựng</a></li>
 		</ul>
 	</div>
 	<div class="container-twoButton">
-		<button class="createTagFolder" style="margin-right:20px;" onclick="createTag(1)">Create a tag</button>
-		<button class="createTagFolder" onclick="createFolder(1)">Create a folder</button>
+		<button class="createTagFolder" style="margin-right:20px;" onclick="createTag(1)">Tạo thẻ học</button>
+		<button class="createTagFolder" onclick="createFolder(1)">Tạo thư mục</button>
+		<img src="settingimg.png" class="setting-icon" onclick='setting()'>
 	</div>
 	<div class="container-2">
 		<div class="url">
 		</div>
 		<div class="container-block"></div>
 	</div>
+	<div class="popup-ctn"></div>
 	<script src="./script.js"></script>
 	<script src="./local.js"></script>
-	<!-- <br>
-	<button onclick="get_URL()">Get url</button>  -->
+	<script src='./feature/setting.js'></script>
 	<button ondblclick="clearlocal()">Clear localStorage</button>
-	<!-- <button onclick="showRootLocal()">show local</button>
-	<br>
-	<br>
-	<button onclick="get_current_urlObject(JSON.parse(localStorage.getItem('root')))">Show current url object</button>
-	<button onclick="show_containerBox()">Show container-block</button> -->
 </body>
 </html>
   

@@ -1,12 +1,15 @@
+let root = JSON.parse(localStorage.getItem("root"));
+let path = get_current_urlObject(root);
 let active_event = 1;
 add_URL('home');
 open_page();
+
+ 
 function createTag(isNew, old_name){
     if (!active_event) return ;
     //Setup local 
-    let root = JSON.parse(localStorage.getItem("root"));
     let get_url = get_URL();
-    let path = get_current_urlObject(root);
+    path = get_current_urlObject(root);
     if (isNew) path.indexFile ++;
 
     // container block 
@@ -21,7 +24,9 @@ function createTag(isNew, old_name){
 
     //onclick
     newTag.onclick = (e) =>{
-        if (active_event) openTag(e,path);
+        if (active_event) {
+            openTag(e,path);
+        }
     }
 
     //name
@@ -33,7 +38,6 @@ function createTag(isNew, old_name){
     }else{
         let autoName = "New tag " + String(path.indexFile)
         let i = 1;
-        console.log (path);
         while (listName[autoName]){
             autoName += '*';
         }
@@ -65,13 +69,12 @@ function createTag(isNew, old_name){
     }
     localStorage.setItem('currentURL', JSON.stringify(currentURL));
 }
-
 function createFolder(isNew, old_name){
     if (!active_event) return ; 
      //Setup localStorage
-    let root = JSON.parse(localStorage.getItem("root"));
+    JSON.parse(localStorage.getItem("root"));
     let get_url = get_URL();
-    let path = get_current_urlObject(root);
+    path = get_current_urlObject(root);
     if (isNew) path.indexFolder ++;
 
     let div = document.querySelector(".container-block");
@@ -122,8 +125,8 @@ function createFolder(isNew, old_name){
 
 function changeName(container, name, icon){
     let div = document.querySelector(".container-block");
-    let root = JSON.parse(localStorage.getItem("root"));
-    let path = get_current_urlObject(root);
+    root = JSON.parse(localStorage.getItem("root"));
+    path = get_current_urlObject(root);
     let entriesPathObject = Object.entries(path);
     let old_name = name.innerText;
     name.remove();
@@ -138,8 +141,8 @@ function changeName(container, name, icon){
     name.addEventListener("change", function(e){
         let new_name = name.value;
         //localStorage 
-        let root = JSON.parse(localStorage.getItem("root"));
-        let path = get_current_urlObject(root); 
+        root = JSON.parse(localStorage.getItem("root"));
+        path = get_current_urlObject(root); 
         let check = 1;
         let list_keys = Object.keys(path);
         list_keys.forEach(e =>{
@@ -233,19 +236,24 @@ function open_page(isBack){
     let container = document.querySelector('.container-block');
     //clear 
     container.innerHTML = "";
-    // Back button 
+    // child folder
     if (isBack){
+        //back button
         let back_button = document.createElement("button");
         back_button.classList.add('back_button');
         back_button.textContent = 'Back';
         back_button.onclick = () => {
             if (active_event) back_buttonHome();
         }
-        container.appendChild(back_button);
+        container.appendChild(back_button); 
+        
+        //setting
+        document.querySelector('.setting-icon').style.display = 'block';
+    } else{
+        document.querySelector('.setting-icon').style.display = 'none';
     }
     // Display blocks
-    let root = JSON.parse(localStorage.getItem("root"));
-    let path = get_current_urlObject(root);
+    path = get_current_urlObject(root);
 
     const list_keys = Object.keys(path)
     const list_values = Object.values(path);
@@ -263,7 +271,12 @@ function openTag(e, path){
     let name = e.target.nextSibling.innerText
     localStorage.setItem('nameTagClicked', name);
     localStorage.setItem('SPM', 'menu');
-
+    //store current URL
+    let currentURL = {
+        urlsBar: get_URL()
+    }
+    localStorage.setItem('currentURL', JSON.stringify(currentURL));
+    //windown location
     window.location.href = (path[name]?.data.length ===0)? './feature/input/indexIP.html': './feature/menu/indexMn.html'; 
 }
 function back_buttonHome(){
@@ -272,7 +285,19 @@ function back_buttonHome(){
     listE_urlBar[listE_urlBar.length-1].remove();
     let url  = document.querySelector('.url');
     if (listE_urlBar.length === 2) open_page()
-        else open_page(1);
+        else open_page(1); 
+}
+
+function setting(){
+    //Modify setting popup
+    localStorage.setItem('SPM', "none");
+    let pre_path = get_pre_urlObject(root, 1);
+    listURL = get_URL();
+    folderName = listURL[listURL.length-1];
+    localStorage.setItem('nameTagClicked', folderName)
+    // change removing button's text 
+    document.querySelector('.rm-tag').innerText = 'Xóa thư mục này';
+    onclickSetting('.container-block', pre_path);
 }
 
 function get_URL(){
@@ -315,4 +340,14 @@ function show_containerBox(){
     let container = document.querySelectorAll('.url')
     console.log(container[0].children);
 }
-
+function get_pre_urlObject(root, n){
+    let list_url = get_URL();
+    for (let i = 0; i < n; i++){
+        list_url.pop();
+    }
+    let path = root;
+    for (let i = 0; i < list_url.length; i++){
+        path = path[list_url[i]].data;
+    }
+    return path;
+}

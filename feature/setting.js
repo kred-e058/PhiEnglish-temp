@@ -1,11 +1,11 @@
 let SPM = localStorage.getItem('SPM');
 let fromPage = (SPM === 'menu')?'menu': 'input';
-
-function onclickSetting(){
-    let ctn = document.querySelector('.container')
+let path_main = path;
+function onclickSetting(bigest_ctn, pre_path){
+    let ctn = document.querySelector(bigest_ctn)
     let popup_ctn = document.querySelector('.popup-ctn');
     popup_ctn.style.display = 'flex';
-
+    if (pre_path) path_main = pre_path;
 }
 
 function setpopup(){
@@ -30,6 +30,7 @@ function setpopup(){
     let btn_rename = document.createElement('button');
     btn_rename.classList.add('pu-rename');
     btn_rename.innerText = 'Đổi tên';
+    if (path !== path_main) btn_rename.innerText = 'Đổi tên folder hiện tại'
     btn_rename.onclick = (e) =>{
         rename(e.target);
     }
@@ -47,6 +48,17 @@ function setpopup(){
         }
         ctn_btns.appendChild(btn_edit);
     }
+
+    //Remove tag
+    ctn_btns.appendChild(document.createElement('br'))
+    let remove_tag = document.createElement('button');
+    remove_tag.classList.add("rm-tag");
+    remove_tag.innerText = 'Xóa thẻ học';
+    remove_tag.onclick = () =>{
+        set_popup_rm();
+    }
+    ctn_btns.appendChild(remove_tag);
+
 }
 setpopup();
 
@@ -55,8 +67,8 @@ function rename(e){
     let nametitle = localStorage.getItem('nameTagClicked');
     let container = document.querySelector('.popup-ctn-button')
     
-    //Warning
-    let popup_ctn = document.querySelector('.popup-ctn');
+    //Warninga
+    let popup_ctn = document.querySelector('.popup-ctn-button');
     let warning = document.createElement('span');
     warning.innerText = "Tên đã bị trùng! Xin hãy nhập tên khác"
     warning.classList.add('warning');
@@ -67,8 +79,6 @@ function rename(e){
     let textarea = document.createElement('textarea');
     textarea.classList.add('input-rename');
     textarea.value = nametitle;
-    container.appendChild(textarea)
-    container.appendChild(document.createElement('br'))
 
     //button submit 
     let btn_submit = document.createElement('button');
@@ -77,14 +87,16 @@ function rename(e){
     btn_submit.onclick = () =>{
         submitRename()
     }
-    container.appendChild(btn_submit);
-
+    container.prepend(btn_submit);
+    container.prepend(document.createElement('br'))
+    container.prepend(textarea)
 }
 function submitRename(){
+    tagName = localStorage.getItem('nameTagClicked');
     let new_name = document.querySelector('.input-rename').value.trim();
     let old_name = tagName.trim();
-    let entriesPath = Object.entries(path);
-    console.log(entriesPath);
+    
+    let entriesPath = Object.entries(path_main);
     for (let e of entriesPath){
         if (e[0] === new_name) {
             let warning = document.querySelector('.warning');
@@ -97,21 +109,46 @@ function submitRename(){
             e[0] = e[0]===old_name?new_name : e[0]; 
             e[1].name = e[0];
         })
-    for (let e in path){
-        delete path[e];
+    for (let e in path_main){
+        delete path_main[e];
     }
-    path = Object.assign(path, Object.fromEntries(entriesPath));
+    path_main = Object.assign(path_main, Object.fromEntries(entriesPath));
     localStorage.setItem("root", JSON.stringify(root));
     tagName = localStorage.setItem('nameTagClicked', new_name);
     window.location.reload();
+    
 }
 
+function set_popup_rm(){
+    let ctn_btns = document.querySelector('.popup-ctn-button')
+    // Ask user to ensure remove this tag 
+    let isRemove = document.createElement('div');
+    isRemove.classList.add('ctn-rm-tag');
 
-function get_current_urlObject(root){
-    let list_url = currentURL.urlsBar;
-    let path = root;
-    for (let i = 0; i < list_url.length; i++){
-        path = path[list_url[i]].data;
+    // notification
+    let note = document.createElement('p');
+    note.textContent = "Bạn muốn xóa vĩnh viễn thẻ học này?";
+    note.classList.add('notif-rm');
+    isRemove.appendChild(note);
+    // alternative button
+    //Deny
+    const deny_btn = document.createElement('button');
+    deny_btn.textContent = "Hủy";
+    deny_btn.classList.add('deny-btn')
+    deny_btn.onclick = () => {
+        isRemove.remove();
     }
-    return path;
+    isRemove.appendChild(deny_btn);
+    //agree
+    const agree_btn = document.createElement('button');
+    agree_btn.textContent = "Đồng ý";
+    agree_btn.classList.add('agree-btn');
+    agree_btn.onclick = () => {
+        delete path[tagName];
+        localStorage.setItem('root', JSON.stringify(root))
+        window.location = '../../index.html'
+    }
+    isRemove.appendChild(agree_btn);
+    ctn_btns.appendChild(isRemove);
 }
+

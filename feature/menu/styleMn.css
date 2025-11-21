@@ -73,7 +73,19 @@ button{
     padding:10px;
     font-size: 18px;
 }
-
+    .title-question{
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+        font-size: 30px;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    .speaker-icon{
+        height: 30px;
+        width: 30px;
+        margin-left: 15px;
+        cursor: pointer;
+    }
 .ctn-alts{
     margin-top: 10px;
     padding:5px;
@@ -133,75 +145,3 @@ button{
         background-color: var(--submit-btn-color)
     } 
 
-.popup-ctn{
-    display: none;
-    min-width: 500px;
-    min-height: 450px;
-    background-color: rgb(48, 35, 35);
-    opacity: 0.99;
-    z-index: 3;
-    position: fixed;
-    flex-direction: column;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    justify-content: center;
-    align-items: center;
-}
-    .close-popup{
-        position: absolute;
-        right: 20px;
-        top: 10px;
-        height: 40px;
-        width: 43px;
-        cursor: pointer;
-    }
-    .popup-ctn-button{
-        width: 80%;
-        height: 350px;
-        text-align: center;
-        /* border: 1px solid white; */
-    }
-        .pu-rename{
-            width: 300px;
-            height: 40px;
-            background-color: var(--normal-btn);
-            color: var(--font-text-color);
-            border-radius: 10px;
-            font-size: 18px;
-            padding: 5px;
-        }
-        .input-rename{
-            margin-top: 10px;
-            color:white;
-            resize: none;
-            width: 300px;
-            background-color: #334443;
-            border-radius: 10px;
-            font-size: 18px;
-        }
-
-        .btn_save_nnam{
-            height: 35px;
-            width: 70px;
-            background-color: var(--normal-btn);
-            color: var(--font-text-color);
-            font-size: 18px;
-            border-radius: 15px;
-            /* padding: 15px; */
-        }
-        .warning{
-            display: block;
-            color: red;
-            font-size: 14px;
-        }
-            .hide{
-                display: none;
-            }
-        .pu-edit{
-            background-color: var(--normal-btn);
-            min-height: 40px;
-            height:auto;
-            margin-top: 20px;
-            padding: 10px;
-        }
