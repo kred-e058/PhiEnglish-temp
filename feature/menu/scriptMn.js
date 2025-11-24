@@ -58,6 +58,8 @@ function add_practice_btn(){
 
 
 function speakText(text) {
+    speechSynthesis.cancel();
+
     utterance.text = text;
     utterance.rate = 1;
     // utterance.currentTime = 0;
@@ -121,7 +123,7 @@ function multipleChoice(){
     speaker_icon.src = '../../speakerItem.png';
     speaker_icon.classList.add('speaker-icon');
     speaker_icon.onclick = () => {
-            console.log(current_term);
+            // console.log(current_term);
             speakText(current_term)
     }
     title_ques.appendChild(speaker_icon);

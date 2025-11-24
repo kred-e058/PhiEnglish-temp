@@ -88,6 +88,7 @@ function speakText(text) {
 }
 //onclick speaker 
 document.querySelector('.speaker').onclick = () => {
+    speechSynthesis.cancel();
     speakText(rdTerm[id_ques]);
 }
 

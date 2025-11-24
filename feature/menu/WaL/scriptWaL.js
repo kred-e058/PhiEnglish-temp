@@ -19,6 +19,7 @@ speechSynthesis.onvoiceschanged= (() =>{
 
 //function to speak
 function speakText(text) {
+    speechSynthesis.cancel();
     let utterance = new SpeechSynthesisUtterance(text);    
     utterance.voice = voices[5];
     utterance.rate = 0.9;

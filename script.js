@@ -2,7 +2,8 @@ let root = JSON.parse(localStorage.getItem("root"));
 let path = get_current_urlObject(root);
 let active_event = 1;
 add_URL('home');
-open_page();
+open_page()
+console.log(root);
 
  
 function createTag(isNew, old_name){
@@ -299,7 +300,7 @@ function setting(){
     document.querySelector('.rm-tag').innerText = 'Xóa thư mục này';
     onclickSetting('.container-block', pre_path);
 }
-
+ 
 function get_URL(){
     let url = document.querySelector('.url');
     let list_folder_in_url_bar = [];
