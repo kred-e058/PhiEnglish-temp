@@ -2,6 +2,7 @@
 let voices = speechSynthesis.getVoices();
 speechSynthesis.addEventListener('voiceschanged', () => {
     voices = speechSynthesis.getVoices();
+    console.log(voices)
 })
 let utterance = new SpeechSynthesisUtterance()
 let currentURL = JSON.parse(localStorage.getItem('currentURL'));
@@ -73,10 +74,6 @@ function multipleChoice(){
     let ctn_header = document.querySelector('.header');
     let settingImg = document.querySelector(' .setting');
     settingImg.style.display = 'none';
-    let nothingIMG = document.createElement('img');
-    nothingIMG.classList.add('nothingImg')
-    nothingIMG.src = '../../backgroundItem__NOTHING.png';
-    ctn_header.appendChild(nothingIMG);
 
     let id = localStorage.getItem('id_ques');
     let rdData = JSON.parse(localStorage.getItem('rdData'));
@@ -128,6 +125,13 @@ function multipleChoice(){
     }
     title_ques.appendChild(speaker_icon);
 
+    //Select voices
+    let select_voices = document.createElement('select');
+    select_voices.classList.add("select-voices");
+    title_ques.appendChild(select_voices);
+    //add options voices 
+    // select_voices.innerHTML = "<option></option>"
+
     // container alts
     let ctn_answers = document.createElement('div');
     ctn_answers.classList.add('ctn-alts')
@@ -155,12 +159,21 @@ function multipleChoice(){
         }
     }
     setAudio();
-
+    
+    //container button next question 
+    let ctn_btn_nextQs = document.createElement('div');
+    ctn_btn_nextQs.classList.add('ctn-btn-nextQs')
+    container.appendChild(ctn_btn_nextQs);
 }
 
 function isTrueAns(ctn, tof){
     //btn next ques
     let id = parseInt(localStorage.getItem('id_ques'))
+
+    //container button nest question 
+    
+
+    //button next question
     let btn_nextQs = document.createElement('button');
     btn_nextQs.classList.add('btn-nextQs');
     btn_nextQs.innerText = 'Next';
@@ -175,7 +188,8 @@ function isTrueAns(ctn, tof){
             btn_nextQs.remove();
         }
     }
-    document.querySelector('.container').appendChild(btn_nextQs);
+
+    document.querySelector('.ctn-btn-nextQs').appendChild(btn_nextQs);
 }
 function finish(){
     localStorage.setItem('SPM', 'finish')
@@ -298,12 +312,13 @@ function randomAlts(array){
 }
 function goBack(){
     if (localStorage.getItem('SPM') === 'menu'){
+        localStorage.setItem('SPM', "home")
         window.location = '../../index.html';
     }else {
         let settingImg = document.querySelector('.setting');
         settingImg.style.display = 'block';
-        let nothingIMG = document.querySelector('.nothingImg');
-        nothingIMG.remove();
+        // let nothingIMG = document.querySelector('.nothingImg');
+        // nothingIMG.remove();
         localStorage.setItem('SPM', 'menu');
         add_practice_btn();
     }

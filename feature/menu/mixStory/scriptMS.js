@@ -16,7 +16,8 @@ setStory();
 function createStory(){
   let stringdata = String(data[0]);
     if (wait_response === 0) {
-      callAPI(stringdata);
+      // callAPI(stringdata);
+      callAPI2(stringdata);
       let button_send = document.querySelector(".create-btn");
       button_send.style.backgroundColor = "rgb(35, 35, 118)";
       button_send.style.cursor = 'wait';
@@ -148,4 +149,38 @@ function get_current_urlObject(root){
     return path;
 }
 
+async function callAPI2(stringdata){
+  try {
+      let content_mess = `
+      Yêu cầu: chọn ra 5 từ vựng trong danh sách hãy viết 2-3 câu bằng tiếng Việt chêm từ vựng tiếng Anh đó(truyện chêm/mixstory).
+      theo Chủ đề: ${genre}
+      Danh sách từ vựng cần chèn: ${stringdata}
+      Yêu cầu quan trọng:
+      - Không đưa ra chú thích gì thêm. 
+      `.trim();
+      wait_response = 1;
+      let response = await fetch("http://127.0.0.1:3000/chat",
+        {
+            method: "POST",
+            headers:{
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              message: content_mess
+            })
 
+        }) 
+
+      let text = await response.json(); 
+      await add_story(marked.parse(text.choices[0].message.content))
+      await store_story(text.choices[0].message.content);
+  } catch (error) {
+      console.log(error)
+        wait_response = 0;
+        let button_send = document.querySelector(".create-btn")
+        button_send.style.backgroundColor = "rgb(37, 37, 247)";
+        button_send.style.cursor = 'pointer';
+        alert('Có lỗi xảy ra!')
+  }
+
+}

@@ -4,6 +4,7 @@ let path = get_current_urlObject(root);
 let tagName = localStorage.getItem('nameTagClicked');
 let data = path[tagName].data;
 let checkEditPage = 0;
+
 // Check data exist
 function isEditPage(){
     if (data.length !== 0){
@@ -99,7 +100,13 @@ function add_blocks(id){
 }
 
 document.querySelector('.goBack-page').addEventListener('click', ()=>{
-    window.location = '../../index.html';
+    if (checkEditPage){
+        localStorage.setItem("SPM", "menu")
+        window.location = '../menu/indexMn.html';
+    } else {
+        localStorage.setItem("SPM", "home");
+        window.location = "../../index.html";
+    }
 })
 
 function addMoreBut(e){
@@ -165,6 +172,12 @@ function get_current_urlObject(root){
         path = path[list_url[i]].data;
     }
     return path;
+}
+
+function redirect(){
+    if (checkEditPage) {
+        window.location = page_redirected;
+    }
 }
 
         // <div class="container-body">

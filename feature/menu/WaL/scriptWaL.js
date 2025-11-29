@@ -147,7 +147,7 @@ function finish(){
 // onclick "You don't know"
 document.querySelector('.dpl-ans').addEventListener('click', (e) =>{
     dplAns();
-})
+}) 
 function dplAns(){
     let button = document.querySelector('.dpl-ans');
     button.innerText = rdTerm[id_ques];

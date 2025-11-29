@@ -1,111 +1,181 @@
+/* Popup container */
+button{
+    cursor: pointer;
+}
 .popup-ctn{
     display: none;
-    width: 72%;
-    max-width: 520px;
-    min-height: 400px;
-    background-color: rgb(48, 35, 35);
-    opacity: 0.98;
-    z-index: 3;
+    width: 90%;
+    max-width: 480px;
+    min-height: 360px;
+    background: rgba(30, 30, 40, 0.55);
+    backdrop-filter: blur(12px);
+    border-radius: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+
     position: fixed;
-    flex-direction: column;
+    z-index: 999;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    justify-content: center;
+
+    /* display: flex; */
+    flex-direction: column;
     align-items: center;
+    padding: 25px 20px;
 }
-    .close-popup{
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        height: 40px;
-        width: 43px;
-        cursor: pointer;
-    }
-    .popup-ctn-button{
-        margin-top: 20px;
-        width: 80%;
-        height: 350px;
-        text-align: center;
-        /* border: 1px solid white; */
-        position: relative;
-    }
-        .popup-ctn-button button{
-            width: 200px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        .pu-rename{
-            background-color: var(--normal-btn);
-            color: var(--font-text-color);
-            border-radius: 10px;
-            font-size: 18px;
-            padding: 5px;
-        }
-        .input-rename{
-            margin-top: 10px;
-            color:white;
-            resize: none;
-            width: 90%;
-            background-color: #334443;
-            border-radius: 10px;
-            font-size: 18px;
-        }
 
-        .btn_save_nnam{
-            height: 35px;
-            max-width: 70px;
-            background-color: var(--normal-btn);
-            color: var(--font-text-color);
-            font-size: 18px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-        .warning{
-            display: block;
-            color: red;
-            font-size: 14px;
-        }
-            .hide{
-                display: none;
-            }
-        .rm-tag{
-            background-color: red;
-            color: var(--font-text-color);
-            width: 150px;
-            padding: 5px;
-            border-radius: 10px;
-            margin-top:20px;
-        }
-        .ctn-rm-tag{
-            height:150px;
-            width: 210px;
-            background-color: #2b4a64;
-            border-radius: 10px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 5px;
-        }
-            .ctn-rm-tag button{
-                 width: 65px;
-                height: 30px;
-            }
-            .agree-btn{
-                background-color: red;
-                border-radius: 30px;
-                font-weight: 600;
-            }
-            .deny-btn{
-                color: var(--font-text-color);
-                background-color: var(--submit-btn-color);
-                padding: 3px;
-                border-radius: 30px;
-                margin-right: 30px;
+/* Close button */
+.close-popup{
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    height: 34px;
+    width: 34px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: 0.2s;
+}
+.close-popup:hover{
+    transform: scale(1.1);
+    opacity: 1;
+}
 
-            }
-            .notif-rm{
-               font-weight: 500;
-               font-size: 18px;
-            }
+/* Main button container */
+.popup-ctn-button{
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Buttons */
+.popup-ctn-button button{
+    width: 100%;
+    max-width: 240px;
+    padding: 10px 0;
+    border-radius: 14px;
+    font-size: 17px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: 0.25s;
+    margin: 0 auto;
+}
+.popup-ctn-button button:hover{
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.15);
+}
+
+/* Rename button style remains but looks cleaner */
+.pu-rename{
+    background-color: var(--normal-btn);
+    color: var(--font-text-color);
+}
+
+/* Rename input */
+.input-rename{
+    width: 95%;
+    background: rgba(255,255,255,0.06);
+    padding: 10px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.15);
+    margin-bottom: 5px;
+    font-size: 17px;
+    color: white;
+}
+
+/* Save button */
+.btn_save_nnam{
+    background-color: var(--normal-btn);
+    color: var(--font-text-color);
+    border-radius: 14px;
+    height: 40px;
+    padding: 5px 15px;
+    font-size: 17px;
+}
+
+/* Warning text */
+.warning{
+    margin-bottom: 5px;
+    color: #ff6b6b;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Remove tag button */
+.rm-tag{
+    background: #d94141;
+    border-radius: 14px;
+    padding: 10px;
+    width: 180px;
+    margin: 10px auto 0;
+    transition: 0.25s;
+}
+.rm-tag:hover{
+    background: #ff5353;
+    transform: translateY(-3px);
+}
+
+/* Confirmation box */
+.ctn-rm-tag{
+    height: auto;
+    width: 240px;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(8px);
+    border-radius: 18px;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+/* Confirmation message */
+.notif-rm{
+    font-size: 17px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+}
+
+/* Confirmation buttons */
+.ctn-rm-tag button{
+    width: 90px;
+    height: 34px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* Accept remove */
+.agree-btn{
+    background-color: #ff4747;
+    color: #fff;
+}
+.agree-btn:hover{
+    background-color: #ff6060;
+}
+
+/* Cancel remove */
+.deny-btn{
+    background-color: #466a8f;
+    color: var(--font-text-color);
+}
+.deny-btn:hover{
+    background-color: #5b87b5;
+}

@@ -63,3 +63,131 @@ function showRootLocal(){
     let root = JSON.parse(localStorage.getItem("root"));
     console.log(root);
 }
+
+function set_avaiable_vocabs(){
+
+    const book = {
+        ilearn10: {
+            unit1: {
+                lesson1: [
+                    //english
+                    [
+                        "Charity",
+                        "Craft",
+                        "Donate",
+                        "Goods",
+                        "Provide",
+                        "Raise",
+                        "Support",
+                        "Temporary",
+                        "Volunteer"
+                    ],
+                    //vietnamese
+                    [
+                        "Từ thiện, tổ chức từ thiện",
+                        "Hội chợ hàng thủ công",
+                        "Tặng, cho, biếu, quyên góp",
+                        "Hàng hóa",
+                        "Cung cấp",
+                        "Gây quỹ",
+                        "Ủng hộ",
+                        "Tạm thời",
+                        "Tình nguyện"
+                    ]
+                ],
+                lesson2: [
+                    //english
+                    [
+                        "Aim",
+                        "Awareness",
+                        "Conservation",
+                        "Educational",
+                        "Homeless",
+                        "Organize",
+                        "Set up"
+                    ],
+                    //vietnamese
+                    [
+                        "Mục tiêu",
+                        "Sự nhận thức",
+                        "Sự giữ gìn, sự bảo tồn",
+                        "Thuộc giáo dục",
+                        "Vô gia cư",
+                        "Tổ chức",
+                        "Thành lập"
+                    ]
+                ],
+                lesson3: [
+                    //english
+                    [
+                        "Fundraising",
+                        "Inspire",
+                        "Marathon"
+                    ],
+                    //vietnamese
+                    [
+                        "Việc gây quỹ",
+                        "Truyền cảm hứng",
+                        "Chạy ma-ra-tông"
+                    ]
+                ],
+                lesson123: [
+                    //english
+                    [
+                        "Charity",
+                        "Craft",
+                        "Donate",
+                        "Goods",
+                        "Provide",
+                        "Raise",
+                        "Support",
+                        "Temporary",
+                        "Volunteer",
+                        "Aim",
+                        "Awareness",
+                        "Conservation",
+                        "Educational",
+                        "Homeless",
+                        "Organize",
+                        "Set up",
+                        "Fundraising",
+                        "Inspire",
+                        "Marathon"
+                    ],
+                    //vietnamese
+                    [
+                        "Từ thiện, tổ chức từ thiện",
+                        "Hội chợ hàng thủ công",
+                        "Tặng, cho, biếu, quyên góp",
+                        "Hàng hóa",
+                        "Cung cấp",
+                        "Gây quỹ",
+                        "Ủng hộ",
+                        "Tạm thời",
+                        "Tình nguyện",
+                        "Mục tiêu",
+                        "Sự nhận thức",
+                        "Sự giữ gìn, sự bảo tồn",
+                        "Thuộc giáo dục",
+                        "Vô gia cư",
+                        "Tổ chức",
+                        "Thành lập",
+                        "Việc gây quỹ",
+                        "Truyền cảm hứng",
+                        "Chạy ma-ra-tông"
+                    ]
+                ]
+            }
+        }   
+    }
+    localStorage.setItem('book', JSON.stringify(book));
+}
+set_avaiable_vocabs();
+
+//SPM 
+    // menu
+    // MC 
+    // finish
+    // none
+    // input
+    // folder

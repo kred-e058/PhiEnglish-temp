@@ -15,26 +15,37 @@
 			<a class="web-name" href="./">Phi English</a>
 		</div>
 		<ul>
-			<li><a href="./">Home</a></li>
-			<li><a href="./feature/nav/available_vocab/">Mẫu từ vựng</a></li>
-			<li><a>Phản Hồi</a></li>
+			<li><a href="./">🏠 Home</a></li>
+			<li><a href="./feature/nav/available_vocab/">📘 Mẫu từ vựng</a></li>
+			<li><a>💬 Phản hồi</a></li>
 		</ul>
 	</div>
-	<div class="container-twoButton">
-		<button class="createTagFolder" style="margin-right:20px;" onclick="createTag(1)">Tạo thẻ học</button>
-		<button class="createTagFolder" onclick="createFolder(1)">Tạo thư mục</button>
-		<img src="settingimg.png" class="setting-icon" onclick='setting()'>
-	</div>
-	<div class="container-2">
-		<div class="url">
+	<div class="dashboard">
+		<div class="block-list-vocab">
+				<div class="book ilearn10" onclick="click_available_list()">
+					<img src="https://img.loigiaihay.com/picture/2024/0122/ta10-ilearn.png">
+					<span>Bộ từ vựng trong Sách giáo khoa tiếng anh I learn smart world 10</span>
+				</div>
 		</div>
-		<div class="container-block"></div>
+		<div class="main">
+			<div class="container-twoButton">
+				<button class="createTagFolder" style="margin-right:20px;" onclick="createTag(1)">Tạo thẻ học</button>
+				<button class="createTagFolder" onclick="createFolder(1)">Tạo thư mục</button>
+				<img src="settingimg.png" class="setting-icon" onclick='setting()'>
+			</div>
+			<div class="container-2">
+				<div class="url">
+				</div>
+				<div class="container-block"></div>
+			</div>
+			<div class="popup-ctn"></div>
+			<button ondblclick="clearlocal()">Clear localStorage</button>
+			<button onclick="set_avaiable_vocabs()">set_avaiable_vocabs</button>
+		</div>
+		<script src="./script.js"></script>
+		<script src="./local.js"></script>
+		<script src='./feature/setting.js'></script>
 	</div>
-	<div class="popup-ctn"></div>
-	<script src="./script.js"></script>
-	<script src="./local.js"></script>
-	<script src='./feature/setting.js'></script>
-	<button ondblclick="clearlocal()">Clear localStorage</button>
 </body>
 </html>
   

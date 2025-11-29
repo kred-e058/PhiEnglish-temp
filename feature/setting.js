@@ -30,14 +30,17 @@ function setpopup(){
     let btn_rename = document.createElement('button');
     btn_rename.classList.add('pu-rename');
     btn_rename.innerText = 'Đổi tên';
-    if (path !== path_main) btn_rename.innerText = 'Đổi tên folder hiện tại'
+    
+    SPM = localStorage.getItem('SPM')
+    if (SPM === "home") btn_rename.innerText = 'Đổi tên folder hiện tại'
     btn_rename.onclick = (e) =>{
         rename(e.target);
     }
     ctn_btns.appendChild(btn_rename);
 
     //Edit feature
-    if (fromPage === 'menu'){
+    SPM = localStorage.getItem('SPM')
+    if (SPM === 'menu'){
         ctn_btns.appendChild(document.createElement('br'));
         let btn_edit = document.createElement('button');
         btn_edit.innerText = 'Chỉnh sửa danh sách từ vựng';
@@ -46,7 +49,7 @@ function setpopup(){
         btn_edit.onclick = () => {
             window.location = "../input/indexIP.html";
         }
-        ctn_btns.appendChild(btn_edit);
+        ctn_btns.appendChild(btn_edit); 
     }
 
     //Remove tag

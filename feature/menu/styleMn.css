@@ -24,25 +24,18 @@ body{
 }
 
 /* -------------------- HEADER -------------------- */
-.header{
+.header{ 
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     position: relative;
     margin-bottom: 18px;
 }
 
 .title{
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 600;
     margin: 0;
-}
-
-.header div{
-    position: absolute;
-    right: 10px;
-    display: flex;
-    gap: 10px;
 }
 
 .setting,
@@ -50,12 +43,16 @@ body{
     cursor: pointer;
     opacity: 0.85;
     transition: 0.2s;
+    height: 50px;
+    border-radius: 10px;
 }
 
 .setting:hover,
 .goBack-page:hover{
     opacity: 1;
     transform: scale(1.05);
+    border:2px solid white;
+
 }
 
 .goBack-page{
@@ -96,6 +93,7 @@ body{
     text-align: start;
     padding: 15px;
     font-size: 18px;
+    position: relative
 }
 
 .title-question{
@@ -143,6 +141,15 @@ body{
 }
 
 /* -------------------- NEXT QUESTION BUTTON -------------------- */
+
+.ctn-btn-nextQs{
+    margin: 0 auto;
+    display: flex;
+    max-width: 600px;
+    justify-content: end;
+    margin-top: 30px;
+}
+
 .btn-nextQs{
     background: var(--accent);
     color: white;
@@ -150,9 +157,6 @@ body{
     padding: 10px 25px;
     border-radius: 20px;
     font-size: 16px;
-    position: absolute;
-    right: 50px;
-    bottom: 230px;
     cursor: pointer;
     transition: 0.2s;
 }
@@ -194,4 +198,25 @@ body{
 
 .greenTick{
     width: 180px;
+}
+
+@media (max-width: 600px){
+    .title{
+            font-size: 20px;
+        }
+
+    .setting, .goBack-page{
+        height: 45px;
+        width: 45px;
+    }
+}
+@media (max-width: 460px){
+    .title{
+        font-size: 18;
+    }
+    .setting, .goBack-page{
+        height: 40px;
+        width: 40px;
+    }
+
 }

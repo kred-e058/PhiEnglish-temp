@@ -26,33 +26,34 @@ body{
 /* ---------- HEADER ---------- */
 .header{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .title{
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
 }
 
-.header div{
-    position: absolute;
-    right: 10px;
-    display: flex;
-    gap: 12px;
-}
-
-.header div img{
+.goBack-page{
     cursor: pointer;
-    border-radius: 12px;
+    opacity: 0.85;
     transition: 0.2s;
+    height: 50px;
+    border-radius: 10px;
 }
 
-.header div img:hover{
-    transform: scale(1.05);
+.goBack-page:hover{
     opacity: 1;
+    transform: scale(1.05);
+    border:2px solid white;
+
+}
+
+.goBack-page{
+    border-radius: 12px;
 }
 
 /* ---------- BODY ---------- */
@@ -262,4 +263,26 @@ body{
 
 .hide{
     display: none;
+}
+
+
+@media (max-width: 600px){
+    .title{
+            font-size: 20px;
+        }
+
+    .setting, .goBack-page{
+        height: 45px;
+        width: 45px;
+    }
+}
+@media (max-width: 460px){
+    .title{
+        font-size: 18;
+    }
+    .setting, .goBack-page{
+        height: 40px;
+        width: 40px;
+    }
+
 }

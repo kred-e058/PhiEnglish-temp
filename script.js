@@ -61,7 +61,8 @@ function createTag(isNew, old_name){
     path[name.innerText]={
         type:'file',
         name: name.innerText,
-        data: path[name.innerText]?.data || []
+        data: path[name.innerText]?.data || [],
+        storys: []
     }
     localStorage.setItem("root", JSON.stringify(root));
     // store currentURL
@@ -70,7 +71,7 @@ function createTag(isNew, old_name){
     }
     localStorage.setItem('currentURL', JSON.stringify(currentURL));
 }
-function createFolder(isNew, old_name){
+function createFolder(isNew, old_name, set_name){
     if (!active_event) return ; 
      //Setup localStorage
     JSON.parse(localStorage.getItem("root"));
@@ -91,6 +92,7 @@ function createFolder(isNew, old_name){
     name.classList.add("icon-name");
     if (isNew) name.innerText="New folder " + path.indexFolder
         else name.innerText = old_name;
+    if (set_name !== undefined) name.innerText = set_name
     name.addEventListener("dblclick", function (){
         changeName(container, name, newFolder);
     })
@@ -101,6 +103,8 @@ function createFolder(isNew, old_name){
     //ONCLICK 
     newFolder.onclick = (e) =>{
         if (active_event) {
+            //set SPM 
+            localStorage.setItem('SPM', "home")
             add_URL(e.target.nextElementSibling.firstChild.data, 1);
             open_page(1);
         }
@@ -219,7 +223,7 @@ function add_URL(name, isBack){
     let slash = document.createElement('span');
     slash.textContent = '/ ';
     url.appendChild(slash);
-   
+    
     // ADD link
     let link_folder = document.createElement('button');
     link_folder.textContent = name;
@@ -341,6 +345,75 @@ function show_containerBox(){
     let container = document.querySelectorAll('.url')
     console.log(container[0].children);
 }
+
+function click_available_list(){
+    console.log(root)
+    let list_url = get_URL();
+
+    //check for book tag exist before
+    if (root.home.data["SGK tiếng Anh ilearn 10"] === undefined ){
+        // create folder
+        folder_create_available_list()
+    } 
+    namebook = ""
+    
+    //open folder
+    const book = JSON.parse(localStorage.getItem('book'));
+    const book_ilearn10 = book.ilearn10;
+    let check_folder_opened = 0;
+    for (let i = 0 ; i < list_url.length; i++){
+        if (list_url[i] === "SGK tiếng Anh ilearn 10") check_folder_opened= 1;
+    } 
+    if (check_folder_opened === 0){
+        add_URL("SGK tiếng Anh ilearn 10", 1);
+        open_page(1);
+    }
+
+}
+
+function folder_create_available_list(){
+    createFolder(1, "", "SGK tiếng Anh ilearn 10");
+    const book = JSON.parse(localStorage.getItem('book'));
+    const book_ilearn10 = book.ilearn10;
+    console.log(book_ilearn10)
+    console.log(book_ilearn10.lesson1);
+    for (let i = 0 ; i < 10; i ++){
+        let name_child_folder = "Unit " + String(i+1);
+        let unit = "unit" + String(i+1);
+        unit = book_ilearn10[unit];
+        path["SGK tiếng Anh ilearn 10"].data[name_child_folder] = {
+            type: 'folder',
+            name: name_child_folder,
+            data:{ 
+                "Lesson 1": {
+                    type: 'file',
+                    name: "Lesson 1",
+                    data: [unit.lesson1[0], unit.lesson1[1]]
+                },
+                "Lesson 2": {
+                    type: 'file',
+                    name: "Lesson 2",
+                    data: [unit.lesson2[0], unit.lesson2[1]]
+                },
+                "Lesson 3": {
+                    type: 'file',
+                    name: "Lesson 3",
+                    data: [unit.lesson3[0], unit.lesson3[1]]
+                },
+                "Lesson 1+2+3": {
+                    type: 'file',
+                    name: "Lesson 1+2+3",
+                    data: [unit.lesson123[0], unit.lesson123[1]]
+                },
+
+                indexFile: 4,
+                indexFolder:0
+            }
+        }
+    }
+    localStorage.setItem("root", JSON.stringify(root));
+}
+
 function get_pre_urlObject(root, n){
     let list_url = get_URL();
     for (let i = 0; i < n; i++){
