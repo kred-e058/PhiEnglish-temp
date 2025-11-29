@@ -425,3 +425,30 @@ function get_pre_urlObject(root, n){
     }
     return path;
 }
+
+
+// // set call api 
+// const apikey = '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'
+// const model = "x-ai/grok-4.1-fast:free"
+
+// const escapeHtml = require("escape-html");
+// const express = require("express");
+// const app = express();
+// const cors = require('cors');
+// app.use(cors({
+//     origin: ['https://kred-e058.github.io/trolyaoDoan', 'https://kred-e058.github.io']
+// }))
+// app.use(express.json());
+
+// app.post('/chat', async (req, res) =>{
+//     let userMessage = String(req.body.message);
+//     const respondse = await callAPI2(userMessage, apikey, model);
+//     res.send(respondse);
+// }) 
+
+// //test
+// app.get('/get', (req,res) =>{
+//     res.send("xin chao ban khoe khong");
+// })
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

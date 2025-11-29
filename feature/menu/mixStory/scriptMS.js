@@ -159,7 +159,7 @@ async function callAPI2(stringdata){
       - Không đưa ra chú thích gì thêm. 
       `.trim();
       wait_response = 1;
-      let response = await fetch("http://127.0.0.1:3000/chat",
+      let response = await fetch("https://backend-api-trolyaodoan.onrender.com/chat",
         {
             method: "POST",
             headers:{
