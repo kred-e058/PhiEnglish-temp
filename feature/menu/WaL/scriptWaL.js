@@ -74,29 +74,45 @@ function submit(){
 
     //check answer
     userAns =  normalizeText(remove_NVAD(userAns));
-    answer =  normalizeText(remove_NVAD(userAns));
+    answer =  normalizeText(remove_NVAD(rdTerm[id_ques].trim().toLowerCase()));
     // console.log(userAns)
     // console.log(answer)
-    if (userAns === answer) alert("trung so roi");
     
     if (userAns === answer) {
-        alert(1);
         texteare.classList.remove('wrong-ans');
         id_ques++;
         reDplAns();
-        if (id_ques === rdTerm.length) {
-            finish();
-        } else{
-            localStorage.setItem('id_ques', id_ques);
-            texteare.value = '';
-            Dpl_currentId_ques()
-            speakTerm()
-        }
+        //animation true ans
+            texteare.classList.remove('correct-anim');
+            void texteare.offsetWidth;
+            texteare.classList.add('correct-anim');
+
+         setTimeout(() => {
+            id_ques++;
+            reDplAns();
+
+            if (id_ques === rdTerm.length) {
+                finish();
+            } else {
+                localStorage.setItem('id_ques', id_ques);
+                texteare.value = '';
+                Dpl_currentId_ques();
+                speakTerm();
+            }
+
+        }, 350);
         
-    } else {
+    } 
+    else {
         // console.log()
         texteare.classList.add('wrong-ans');
-        console.log('animation wrong ans');
+        texteare.classList.add('rung-lac');
+
+        // kích hoạt rung lắc
+        texteare.classList.remove('rung-lac');
+        void texteare.offsetWidth;    
+        texteare.classList.add('rung-lac');
+
     }
 }
 if (id_ques >= rdTerm.length) finish();

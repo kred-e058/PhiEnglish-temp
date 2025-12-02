@@ -166,7 +166,30 @@ body{
 }
 
 .wrong-ans{
-    border-color: red;
+    border:5px red solid;
+    /* animation: shake 0.3s ease; */
+}
+.rung-lac{
+    animation: shake 0.3s ease;
+}
+@keyframes shake {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes correct {
+    0%   { transform: scale(1);     background-color: transparent; }
+    20%  { transform: scale(1.06);  background-color: rgba(0,255,0,0.18); }
+    50%  { transform: scale(1.03);  background-color: rgba(0,255,0,0.25); }
+    100% { transform: scale(1);     background-color: transparent; }
+}
+
+.correct-anim {
+    animation: correct 0.4s ease;
 }
 
 /* ---------- SUBMIT AND HINT ---------- */
