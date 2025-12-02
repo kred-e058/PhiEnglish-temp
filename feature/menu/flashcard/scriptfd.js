@@ -5,11 +5,11 @@ let root = JSON.parse(localStorage.getItem('root'));
 let tagName = localStorage.getItem('nameTagClicked');
 let data = JSON.parse(localStorage.getItem('data'));
 let id_ques = parseInt(localStorage.getItem('id_ques'));
-
+let utterance = new SpeechSynthesisUtterance()
 let rdData = JSON.parse(localStorage.getItem('rdData'));
 let rdTerm = rdData[0];
 console.log(rdData);
-let rdDef = rdData[1];
+let rdDef = rdData[1]; 
 
 //title page
 let title = document.querySelector('.title')
@@ -80,10 +80,19 @@ speechSynthesis.addEventListener('voiceschanged', () => {
 })
 
 function speakText(text) {
-    let utterance = new SpeechSynthesisUtterance(text)
+    let content = text;
+    for (let i = 0 ; i < content.length; i++){
+        if (content[i] === '('){
+            content = content.slice(0, i)
+        }
+    }
+    console.log(content);
+    speechSynthesis.cancel();
+    let id_voice = document.querySelector('.select-voices')?.value;
+    utterance.text = content;
     utterance.rate = 1;
-    utterance.currentTime = 0;
-    utterance.voice = voices[5];
+    // utterance.currentTime = 0;
+    utterance.voice = voices[id_voice?id_voice:5];
     speechSynthesis.speak(utterance);
 }
 //onclick speaker 

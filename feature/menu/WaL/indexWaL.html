@@ -26,19 +26,25 @@
             <div class="ctn-ques">
                 <button class="btn-hide-ans" onclick='hintAns()'>Gợi ý 💡</button>
                 <img src="../../../speakerItem.png" class="item-speaker" onclick="speakTerm()">
+                <select class="select-voices">
+                    <option value="1">English 1</option>
+                    <option value="2">English 2</option>
+                    <option value="3">US Male</option>
+                    <option value="4">US Female</option>
+                </select>
             </div>
 
             <div class="ctn-inputAns">
                 <textarea class="inputAns" placeholder="Input here"></textarea>
                 <div class="ans-and-submit">
                     <span class="dpl-ans">Bạn không biết?</span>
-                    <button class="submit" onclick="submit()">Submit</button>
                 </div>
-            </div
+            </div>
+            <button class="submit" onclick="submit()">Submit</button>
         </div>
     </div>
 
     <script src="scriptWaL.js" ></script>
     <script src="../../../local.js"></script>
-</body>
+</body> 
 </html> 

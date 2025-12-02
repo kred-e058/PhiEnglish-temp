@@ -3,10 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>PhiEnglish</title>
 	<link rel="stylesheet" href="style.css">
 	<link rel='stylesheet' href="root.css">
 	<link rel='stylesheet' href="feature/setting_style.css">
+	<link rel="stylesheet" href="../../../navbar.css">
+
 </head> 
 <body>
 	<div class="navbar">
@@ -17,7 +19,7 @@
 		<ul>
 			<li><a href="./">🏠 Home</a></li>
 			<li><a href="./feature/nav/available_vocab/">📘 Mẫu từ vựng</a></li>
-			<li><a>💬 Phản hồi</a></li>
+			<li><a href="./feature/nav/feedback_page/indexFeedbackpage.html">ℹ️ About</a></li>
 		</ul>
 	</div>
 	<div class="dashboard">
@@ -39,8 +41,10 @@
 				<div class="container-block"></div>
 			</div>
 			<div class="popup-ctn"></div>
-			<button ondblclick="clearlocal()">Clear localStorage</button>
-			<button onclick="set_avaiable_vocabs()">set_avaiable_vocabs</button>
+			<div class="ctn-clearLocal">
+				<button ondblclick="clearlocal()" class="btn-clearLocal" onclick="remind_clearlocal()">Xóa tất cả dữ liệu</button>
+				<span class="text-notice-dbl-click-clearLocal">Nhấn 2 lần</span>	
+			</div>
 		</div>
 		<script src="./script.js"></script>
 		<script src="./local.js"></script>

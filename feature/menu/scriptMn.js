@@ -11,11 +11,12 @@ let tagName = localStorage.getItem('nameTagClicked');
 let data = get_current_urlObject(root)[tagName].data;
 let path = get_current_urlObject(root);
 let current_term;
+
 //title page
 let title = document.querySelector('.title')
 title.innerText = tagName
 //container-body
-if (!localStorage.getItem('SPM')){
+if (!localStorage.getItem('SPM')){ 
     localStorage.setItem('SPM', "menu")
 }
 if (localStorage.getItem('SPM') === 'menu'){
@@ -39,12 +40,12 @@ function add_practice_btn(){
                 <button class="practice-btn" onclick="
                     localStorage.setItem('id_ques', '0');
                     randomMC();
-                    multipleChoice()">Multiple choice</button><br>
+                    multipleChoice()">Trắc nghiệm </button><br>
 
             <button class="practice-btn" onclick="
                 window.location = './WaL/indexWaL.html';
                 localStorage.setItem('id_ques', 0); 
-                randomMC();">Writting by listen</button><br>
+                randomMC();">Nghe viết</button><br>
 
             <button class="practice-btn" onclick="
                 window.location = './flashcard/indexfd.html';
@@ -59,12 +60,19 @@ function add_practice_btn(){
 
 
 function speakText(text) {
+    let content = text;
+    for (let i = 0 ; i < content.length; i++){
+        if (content[i] === '('){
+            content = content.slice(0, i)
+        }
+    }
+    console.log(content);
     speechSynthesis.cancel();
-
-    utterance.text = text;
+    let id_voice = document.querySelector('.select-voices')?.value;
+    utterance.text = content;
     utterance.rate = 1;
     // utterance.currentTime = 0;
-    utterance.voice = voices[5];
+    utterance.voice = voices[id_voice?id_voice:5];
     speechSynthesis.speak(utterance);
 }
 
@@ -80,6 +88,7 @@ function multipleChoice(){
     let rdTerm = rdData[0];
     let  rdDef = rdData[1]
     let  rdAlts = rdData[2];
+    console.log(rdData)
     //refresh
     localStorage.setItem('SPM', "MC")
     let container = document.querySelector('.container-body');
@@ -95,11 +104,12 @@ function multipleChoice(){
  
     //display "Term"
     let strTerm = document.createElement('span');
-    strTerm.innerHTML= '<strong>Term</strong>';
+    strTerm.innerHTML= '<strong>Thuật ngữ</strong>';
     ctn_ques.appendChild(strTerm);
 
     //counter ques 
     let cnumQ = document.createElement('span')
+    cnumQ.classList.add('counter-ques')
     cnumQ.innerText = (parseInt(id)+1) + '/' + data[0].length
     cnumQ.style.cssText = `
         position: absolute;
@@ -112,7 +122,6 @@ function multipleChoice(){
     title_ques.classList.add('title-question');
     title_ques.innerText = rdTerm[id];
     current_term = rdTerm[id];
-    speakText(current_term)
     ctn_ques.appendChild(title_ques);
 
     //speaker icon 
@@ -120,17 +129,35 @@ function multipleChoice(){
     speaker_icon.src = '../../speakerItem.png';
     speaker_icon.classList.add('speaker-icon');
     speaker_icon.onclick = () => {
-            // console.log(current_term);
-            speakText(current_term)
+            id = localStorage.getItem('id_ques');
+            console.log(id);
+            current_term = rdTerm[id];
+            speakText(current_term);
     }
-    title_ques.appendChild(speaker_icon);
+    ctn_ques.appendChild(speaker_icon);
 
-    //Select voices
-    let select_voices = document.createElement('select');
-    select_voices.classList.add("select-voices");
-    title_ques.appendChild(select_voices);
-    //add options voices 
-    // select_voices.innerHTML = "<option></option>"
+    // Tạo select
+    const select_voices = document.createElement('select');
+    select_voices.className = "select-voices";
+    ctn_ques.appendChild(select_voices);
+
+    // Danh sách giọng
+    const list_voices = [
+        { value: 1, label: "English 1" },
+        { value: 2, label: "English 2" },
+        { value: 5, label: "English 3" },
+        { value: 3, label: "US Male" },
+        { value: 0, label: "US Female" }
+    ];
+
+    // Tạo option tự động
+    list_voices.forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v.value;
+        opt.textContent = v.label;
+        select_voices.appendChild(opt);
+    });
+    speakText(current_term)
 
     // container alts
     let ctn_answers = document.createElement('div');
@@ -144,17 +171,13 @@ function multipleChoice(){
         alts.innerText= rdAlts[id][i];
         ctn_answers.appendChild(alts)
         alts.onclick= (e) => {
+            id = localStorage.getItem('id_ques')
             let element = e.target.innerText;
             if (element === rdDef[id]) {
-                if (document.querySelectorAll('.btn-nextQs').length === 0) isTrueAns(container);
-                e.target.style.border = '2px solid yellow';
+                if (document.querySelectorAll('.btn-nextQs').length === 0) trueAns(container, e.target);
+                e.target.classList.add('true-alt');
             } else {
-                e.target.style.cssText = `
-                    background:  #323240;
-                    color:  #323240;
-                    border: 0;
-                `
-
+                e.target.classList.add('false-alt');
             }
         }
     }
@@ -166,25 +189,53 @@ function multipleChoice(){
     container.appendChild(ctn_btn_nextQs);
 }
 
-function isTrueAns(ctn, tof){
+function set_new_qs(){
+    let id = localStorage.getItem('id_ques');
+    let rdData = JSON.parse(localStorage.getItem('rdData'));
+    let rdTerm = rdData[0];
+    let  rdDef = rdData[1]
+    let  rdAlts = rdData[2];
+    //increase counter question 
+    let counter_qs = document.querySelector('.counter-ques')
+    counter_qs.innerText = (parseInt(id)+1) + '/' + data[0].length
+
+    //Next Term 
+    let title_question = document.querySelector('.title-question');
+    title_question.innerText = rdTerm[id];
+
+    //Change alts
+    let alts = [...document.querySelectorAll('.alts')];
+    for (let i = 0; i < ((rdTerm.length>=4)?4:rdTerm.length); i++){
+        alts[i].classList.remove('false-alt')
+        alts[i].innerText = rdAlts[id][i];
+
+    }
+    // console.log(alts);
+    
+    //auto speak 
+
+    speakText(rdTerm[id]);
+
+}
+function trueAns(ctn, element){
     //btn next ques
     let id = parseInt(localStorage.getItem('id_ques'))
 
     //container button nest question 
     
-
     //button next question
     let btn_nextQs = document.createElement('button');
     btn_nextQs.classList.add('btn-nextQs');
     btn_nextQs.innerText = 'Next';
     btn_nextQs.onclick = () =>{
+        element.classList.remove('true-alt')
         id++;
         if (id === data[0].length) { 
             finish()
             btn_nextQs.remove();
         } else{
             localStorage.setItem('id_ques', id);
-            multipleChoice();
+            set_new_qs();
             btn_nextQs.remove();
         }
     }

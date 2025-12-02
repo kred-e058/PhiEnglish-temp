@@ -61,6 +61,7 @@ button {
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    height: 80vh;
 }
 
 .top-ctn {
@@ -69,6 +70,8 @@ button {
     justify-content: center;
     position: relative;
     margin-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .cr-id-ques {
@@ -78,15 +81,27 @@ button {
 
 .speaker {
     position: absolute;
-    right: 20px;
-    width: 28px;
-    height: 28px;
+    right: 0;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
     transition: transform 0.2s ease;
 }
 
 .speaker:hover {
     transform: scale(1.2);
+}
+
+.select-voices{
+    position: absolute;
+    left: 0;
+    font-family: cursive;
+    cursor: pointer;
+    margin-left: 5px;
+    padding:5px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
 }
 
 .body-ctn {
@@ -96,8 +111,8 @@ button {
 }
 
 .flashcard {
-    width: 320px;
-    min-height: 220px;
+    width: 500px;
+    min-height: 420px;
     border-radius: 25px;
     border: 2px solid #7a2ed0;
     background-color: var(--bgr-ctn-color);
@@ -109,6 +124,8 @@ button {
     font-weight: 600;
     padding: 15px;
     transition: all 0.3s ease;
+    margin-top: 20px; 
+    /* flex: 2; */
 }
 
 .flashcard:hover {
@@ -133,8 +150,8 @@ button {
     border-radius: 12px;
     background-color: #41414c;
     color: var(--font-text-color);
-    height: 36px;
-    width: 50px;
+    height: 56px;
+    width: 70px;
     font-size: 20px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -249,7 +266,12 @@ button {
     width: 180px;
 }
 
-
+@media (max-width: 570px) {
+    .flashcard{
+        width: 350px;
+    }
+    
+}
 @media (max-width: 600px){
     .title{
             font-size: 20px;
@@ -259,8 +281,12 @@ button {
         height: 45px;
         width: 45px;
     }
+    .speaker{
+        height: 45px; 
+        width: 45px;
+    }
 }
-@media (max-width: 460px){
+@media (max-width: 400px){
     .title{
         font-size: 18;
     }
@@ -268,5 +294,7 @@ button {
         height: 40px;
         width: 40px;
     }
-
+    .flashcard{
+        width: 300px;
+    }
 }

@@ -3,7 +3,7 @@ let currentURL = JSON.parse(localStorage.getItem('currentURL'));
 let root = JSON.parse(localStorage.getItem('root'));
 let tagName = localStorage.getItem('nameTagClicked');
 let data = JSON.parse(localStorage.getItem('data'));
-
+let utterance = new SpeechSynthesisUtterance()
 //title page
 let title = document.querySelector('.title')
 title.innerText = tagName
@@ -19,10 +19,19 @@ speechSynthesis.onvoiceschanged= (() =>{
 
 //function to speak
 function speakText(text) {
+    let content = text;
+    for (let i = 0 ; i < content.length; i++){
+        if (content[i] === '('){
+            content = content.slice(0, i)
+        }
+    }
+    // console.log(content);
     speechSynthesis.cancel();
-    let utterance = new SpeechSynthesisUtterance(text);    
-    utterance.voice = voices[5];
-    utterance.rate = 0.9;
+    let id_voice = document.querySelector('.select-voices')?.value;
+    utterance.text = content;
+    utterance.rate = 1;
+    // utterance.currentTime = 0;
+    utterance.voice = voices[id_voice?id_voice:5];
     speechSynthesis.speak(utterance);
 }
 
@@ -64,7 +73,14 @@ function submit(){
     let userAns = texteare.value.trim().toLowerCase();
 
     //check answer
-    if (userAns === rdTerm[id_ques].trim().toLowerCase() ) {
+    userAns =  normalizeText(remove_NVAD(userAns));
+    answer =  normalizeText(remove_NVAD(userAns));
+    // console.log(userAns)
+    // console.log(answer)
+    if (userAns === answer) alert("trung so roi");
+    
+    if (userAns === answer) {
+        alert(1);
         texteare.classList.remove('wrong-ans');
         id_ques++;
         reDplAns();
@@ -75,11 +91,10 @@ function submit(){
             texteare.value = '';
             Dpl_currentId_ques()
             speakTerm()
-            reHintAns();
-            reHintAns();
         }
         
     } else {
+        // console.log()
         texteare.classList.add('wrong-ans');
         console.log('animation wrong ans');
     }
@@ -162,6 +177,23 @@ function goBack(){
     window.location = '../indexMn.html';
 }
 
+function remove_NVAD(text){
+    let content = text; 
+    for (let i = 0 ; i < content.length; i++){
+        if (content[i] === '(') {
+            content = content.slice(0, i);
+            break;
+        }
+    }
+    // console.log(content);
+    return content;
+}
+function normalizeText(str){
+    return str
+        .normalize('NFC')    
+        .trim()  
+        .toLowerCase();    
+}
 
 function randomTaD(){
     //Set variable
@@ -237,7 +269,7 @@ document.querySelector('.submit').addEventListener('click', ()=>{
 function playAuClick(){
     let click = new Audio("../../../click.wav");
     click.volume = 0.03;
-    console.log(123);
+    // console.log(123);
     click.currentTime = 0;
     click.play();
 }

@@ -71,7 +71,7 @@ function add_blocks(id){
 
     //span Enter Term 
     let spanTerm = document.createElement('span');
-    spanTerm.textContent = 'Enter Term';
+    spanTerm.textContent = 'Thuật ngữ';
     boxT.appendChild(spanTerm);
 
     //boxD
@@ -94,7 +94,7 @@ function add_blocks(id){
 
     //span Enter Definition
     let spanDef = document.createElement('span')
-    spanDef.textContent = 'Enter Definition'
+    spanDef.textContent = 'Định nghĩa'
     boxD.appendChild(spanDef);
     index++;
 }

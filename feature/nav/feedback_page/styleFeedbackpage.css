@@ -1,0 +1,32 @@
+.about-container {
+    background: var(--card-color, #27272A);
+    padding: 20px;
+    border-radius: 14px;
+    color: var(--text-color, #F4F4F5);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    max-width: 800px;
+    margin: 20px auto;
+    animation: fadeIn 0.4s ease;
+}
+
+.about-container h3 {
+    margin: 0 0 10px 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--accent, #8B5CF6);
+}
+
+.about-container p {
+    line-height: 1.6;
+    font-size: 15px;
+    margin: 0;
+}
+
+.about-container strong {
+    color: var(--accent2, #EC4899);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
