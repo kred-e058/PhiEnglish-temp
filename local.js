@@ -166,6 +166,7 @@ function set_avaiable_vocabs(){
                         "Sạch sẽ, lau dọn",
                         "Phủi bụi",
                         "Lau",
+                        "Cất đi, dọn đi",
                         "Quét nhà",
                         "Dọn phòng",
                         "Hút bụi",
@@ -535,10 +536,6 @@ function set_avaiable_vocabs(){
                 lesson1: [
                     //english
                     [
-                        "Allow (v)",
-                        "Campaign (v)",
-                        "Causative Verb (n)",
-                        "Committee (n)",
                         "Allow (v)",
                         "Campaign (v)",
                         "Causative Verb (n)",
